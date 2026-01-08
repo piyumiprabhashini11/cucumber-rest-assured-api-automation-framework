@@ -1,6 +1,6 @@
 ## Cucumber Rest Assured API Automation Framework
 
-This repository contains a Cucumber BDD API Automation Framework built from scratch using Java, Rest Assured, Maven, and Cucumber. The framework is designed following real-world, enterprise-level practices with a focus on reusability, scalability, and maintainability.
+This repository contains a Cucumber BDD API Automation Framework built from scratch using Java, Rest Assured, Maven, JUnit, and Cucumber. The framework is designed following real-world, enterprise-level practices with a focus on reusability, scalability, and maintainability.
 
 This project demonstrates how to automate REST APIs using BDD (Behavior Driven Development) principles and can be used as a learning reference as well as a portfolio project for QA/SDET roles.
 
@@ -9,7 +9,7 @@ This project demonstrates how to automate REST APIs using BDD (Behavior Driven D
 - **Build Tool:** Maven
 - **API Automation:** Rest Assured
 - **BDD Framework:** Cucumber
-- **Test Runner:** TestNG
+- **Test Runner:** JUnit
 - **IDE:** Eclipse IDE / IntelliJ IDEA
 - **Version Control:** Git & GitHub
 
