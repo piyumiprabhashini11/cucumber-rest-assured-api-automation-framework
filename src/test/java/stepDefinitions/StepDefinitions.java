@@ -3,6 +3,8 @@ package stepDefinitions;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.testng.Assert.assertEquals;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import io.cucumber.java.en.Given;
@@ -26,16 +28,16 @@ public class StepDefinitions extends Utils {
 	ResponseSpecification resSpec;
 	Response response;
 	@Given("Add Place Payload")
-	public void add_Place_Payload() {
+	public void add_Place_Payload() throws FileNotFoundException {
 		TestDataBuild data = new TestDataBuild();
 		req = given().spec(requestSpecification()).body(data.addPlacePayload()).log().all();
-		resSpec = new ResponseSpecBuilder().expectContentType(ContentType.JSON).expectStatusCode(200).build();
+
 
 	}
 	
 	@When("User calls {string} with POST http request") 
     public void user_calls_with_POST_http_Request(String string){
-//		ResponseSpecification resSpec=new ResponseSpecBuilder().expectStatusCode(200).build();
+        resSpec=new ResponseSpecBuilder().expectStatusCode(200).build();
 		response=req.when().post("/maps/api/place/add/json")
 				.then().spec(resSpec).extract().response();
 }
