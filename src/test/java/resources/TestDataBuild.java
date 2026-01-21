@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestDataBuild {
-    public SetGoogleMapDetails addPlacePayload(){
+    public SetGoogleMapDetails addPlacePayload(String name, String language, String address){
         SetGoogleMapDetails ob = new SetGoogleMapDetails();
         ob.setAccuracy(50);
-        ob.setName("Frontline house");
-        ob.setAddress("29, side layout, cohen 09");
+        ob.setName(name);
+        ob.setAddress(address);
         ob.setPhone_number("(+91) 983 893 3937");
         ob.setWebsite("http://google.com");
-        ob.setLanguage("French-IN");
+        ob.setLanguage(language);
 
         List<String> myList = new ArrayList<>();
         myList.add("shoe park");

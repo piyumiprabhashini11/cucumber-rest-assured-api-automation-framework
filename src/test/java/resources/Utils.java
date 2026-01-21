@@ -10,7 +10,7 @@ import java.util.Properties;
 public class Utils {
     RequestSpecification reqSpec;
     public RequestSpecification requestSpecification() throws IOException {
-        PrintStream log = new PrintStream(new FileOutputStream("E:\\Piyumi\\Automation\\Cucumber-Rest-Assured-API-Automation-Framework\\target\\request-response.txt"));
+        PrintStream log = new PrintStream(new FileOutputStream("logs/request-response.txt"));
         reqSpec=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).addQueryParam("key","qaclick123")
                 .addFilter(RequestLoggingFilter.logRequestTo(log))
                 .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
