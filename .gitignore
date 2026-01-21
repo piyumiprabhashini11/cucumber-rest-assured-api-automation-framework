@@ -14,8 +14,9 @@ target/
 # VS Code workspace files
 .vscode/
 
-# Logs
+logs/
 *.log
+*.txt
 
 # OS files
 .DS_Store
