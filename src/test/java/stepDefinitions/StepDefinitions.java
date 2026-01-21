@@ -19,10 +19,10 @@ public class StepDefinitions extends Utils {
 	RequestSpecification req;
 	ResponseSpecification resSpec;
 	Response response;
-	@Given("Add Place Payload")
-	public void add_Place_Payload() throws IOException {
+	@Given("Add Place Payload {string} {string} {string}")
+	public void add_Place_Payload(String name, String language, String address) throws IOException {
 		TestDataBuild data = new TestDataBuild();
-		req = given().spec(requestSpecification()).body(data.addPlacePayload()).log().all();
+		req = given().spec(requestSpecification()).body(data.addPlacePayload(name,language,address)).log().all();
 	}
 	
 	@When("User calls {string} with POST http request") 
