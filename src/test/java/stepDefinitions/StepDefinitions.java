@@ -1,24 +1,16 @@
 package stepDefinitions;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 import static org.testng.Assert.assertEquals;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import pojo.SetGoogleMapDetails;
-import pojo.Location;
 import resources.TestDataBuild;
 import resources.Utils;
 
@@ -28,11 +20,9 @@ public class StepDefinitions extends Utils {
 	ResponseSpecification resSpec;
 	Response response;
 	@Given("Add Place Payload")
-	public void add_Place_Payload() throws FileNotFoundException {
+	public void add_Place_Payload() throws IOException {
 		TestDataBuild data = new TestDataBuild();
 		req = given().spec(requestSpecification()).body(data.addPlacePayload()).log().all();
-
-
 	}
 	
 	@When("User calls {string} with POST http request") 
@@ -43,7 +33,6 @@ public class StepDefinitions extends Utils {
 }
 	@Then("The API call is success with the status code {int}")
 	public void the_API_call_got_success_with_statuscode(Integer int1) {
-
 		assertEquals(response.getStatusCode(),200);
 		}
 	

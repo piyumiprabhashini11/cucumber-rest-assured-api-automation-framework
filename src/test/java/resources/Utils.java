@@ -4,17 +4,22 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.Properties;
 
 public class Utils {
     RequestSpecification reqSpec;
-    public RequestSpecification requestSpecification() throws FileNotFoundException {
-        PrintStream log = new PrintStream(new FileOutputStream("logging.txt"));
-        reqSpec=new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").addQueryParam("key","qaclick123")
+    public RequestSpecification requestSpecification() throws IOException {
+        PrintStream log = new PrintStream(new FileOutputStream("E:\\Piyumi\\Automation\\Cucumber-Rest-Assured-API-Automation-Framework\\target\\request-response.txt"));
+        reqSpec=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).addQueryParam("key","qaclick123")
                 .addFilter(RequestLoggingFilter.logRequestTo(log))
                 .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
         return reqSpec;
+    }
+    public static String getGlobalValue(String key) throws IOException {
+           Properties prop = new Properties();
+           FileInputStream fis = new FileInputStream("E:\\Piyumi\\Automation\\Cucumber-Rest-Assured-API-Automation-Framework\\src\\test\\java\\resources\\global.properties");
+           prop.load(fis);
+           return prop.getProperty(key);
     }
 }
