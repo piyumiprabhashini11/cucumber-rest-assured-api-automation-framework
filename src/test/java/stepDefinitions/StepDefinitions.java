@@ -11,6 +11,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import resources.APIResources;
 import resources.TestDataBuild;
 import resources.Utils;
 
@@ -25,14 +26,21 @@ public class StepDefinitions extends Utils {
 		req = given().spec(requestSpecification()).body(data.addPlacePayload(name,language,address)).log().all();
 	}
 	
-	@When("User calls {string} with POST http request") 
-    public void user_calls_with_POST_http_Request(String string){
+	@When("User calls {string} with {string} http request")
+    public void user_calls_with_POST_http_Request(String resource,String method) throws IOException {
+		APIResources  apiResource = APIResources.valueOf(resource);//Constructor of 'APIResources' enum java class will be invoked with the type
+		// of resource you pass
+		System.out.println(apiResource.getResource());
         resSpec=new ResponseSpecBuilder().expectStatusCode(200).build();
-		response=req.when().post("/maps/api/place/add/json")
-				.then().spec(resSpec).extract().response();
+		if(method.equalsIgnoreCase("POST")) {
+			response=req.when().post(apiResource.getResource());
+		} else if (method.equalsIgnoreCase("GET")) {
+			response=req.when().get(apiResource.getResource());
+		}
 }
 	@Then("The API call is success with the status code {int}")
 	public void the_API_call_got_success_with_statuscode(Integer int1) {
+
 		assertEquals(response.getStatusCode(),200);
 		}
 	
@@ -41,5 +49,6 @@ public class StepDefinitions extends Utils {
 	   JsonPath js = response.jsonPath();
 	   assertEquals(js.getString(key),expectedValue);
    }
+
 }
 
