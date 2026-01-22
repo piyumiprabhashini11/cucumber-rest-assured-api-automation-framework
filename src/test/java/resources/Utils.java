@@ -8,12 +8,15 @@ import java.io.*;
 import java.util.Properties;
 
 public class Utils {
-    RequestSpecification reqSpec;
+    public static RequestSpecification reqSpec;
     public RequestSpecification requestSpecification() throws IOException {
-        PrintStream log = new PrintStream(new FileOutputStream("logs/request-response.txt"));
-        reqSpec=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).addQueryParam("key","qaclick123")
-                .addFilter(RequestLoggingFilter.logRequestTo(log))
-                .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
+        if(reqSpec == null){
+            PrintStream log = new PrintStream(new FileOutputStream("logs/request-response.txt"));
+            reqSpec=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).addQueryParam("key","qaclick123")
+                    .addFilter(RequestLoggingFilter.logRequestTo(log))
+                    .addFilter(ResponseLoggingFilter.logResponseTo(log)).build();
+            return reqSpec;
+        }
         return reqSpec;
     }
     public static String getGlobalValue(String key) throws IOException {
