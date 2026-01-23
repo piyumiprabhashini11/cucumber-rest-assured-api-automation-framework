@@ -3,12 +3,16 @@ package resources;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import java.io.*;
 import java.util.Properties;
 
 public class Utils {
     public static RequestSpecification reqSpec;
+    JsonPath js;
+
     public RequestSpecification requestSpecification() throws IOException {
         if(reqSpec == null){
             PrintStream log = new PrintStream(new FileOutputStream("logs/request-response.txt"));
@@ -24,5 +28,9 @@ public class Utils {
            FileInputStream fis = new FileInputStream("E:\\Piyumi\\Automation\\Cucumber-Rest-Assured-API-Automation-Framework\\src\\test\\java\\resources\\global.properties");
            prop.load(fis);
            return prop.getProperty(key);
+    }
+    public String getJsonPath(Response response, String key) throws IOException {
+          js=response.jsonPath();
+          return js.getString(key);
     }
 }
