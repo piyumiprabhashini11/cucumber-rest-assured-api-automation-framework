@@ -27,4 +27,9 @@ public class TestDataBuild {
 
         return ob;
           }
+    public String deletePlacepayload(String placeId){
+
+        return "{\r\n    \"place_id\":\""+placeId+"\"\r\n}";
+        //Convert Json to String using Escape Json tool ({\r\n    \"place_id\":\"cbeef2741cce7486303e61bbc3df2945\"\r\n})
+    }
 }
