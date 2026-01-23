@@ -3,11 +3,10 @@ package stepDefinitions;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import java.io.IOException;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -27,14 +26,13 @@ public class StepDefinitions extends Utils {
 	}
 	
 	@When("User calls {string} with {string} http request")
-    public void user_calls_with_POST_http_Request(String resource,String method) throws IOException {
-		APIResources  apiResource = APIResources.valueOf(resource);//Constructor of 'APIResources' enum java class will be invoked with the type
-		// of resource you pass
+    public void user_calls_with_http_Request(String apiType,String apiMethod) throws IOException {
+		APIResources  apiResource = APIResources.valueOf(apiType);//Constructor of 'APIResources' enum java class will be invoked with the type
+		// of apiType (AddPlace API, GetPlaceAPI etc) you pass
 		System.out.println(apiResource.getResource());
-        resSpec=new ResponseSpecBuilder().expectStatusCode(200).build();
-		if(method.equalsIgnoreCase("POST")) {
+		if(apiMethod.equalsIgnoreCase("POST")) {
 			response=req.when().post(apiResource.getResource());
-		} else if (method.equalsIgnoreCase("GET")) {
+		} else if (apiMethod.equalsIgnoreCase("GET")) {
 			response=req.when().get(apiResource.getResource());
 		}
 }
@@ -45,10 +43,17 @@ public class StepDefinitions extends Utils {
 		}
 	
    @Then("{string} inside the response body is {string}")
-   public void inside_the_response_body_is(String key,String expectedValue) {
-	   JsonPath js = response.jsonPath();
-	   assertEquals(js.getString(key),expectedValue);
+   public void inside_the_response_body_is(String key,String expectedValue) throws IOException {
+	     assertEquals(getJsonPath(response,key),expectedValue);
    }
 
+	@And("Verify place_Id created maps to {string} using {string}")
+	public void verifyPlace_IdCreatedMapsToUsing(String expectedName, String apiType) throws IOException {
+		String place_Id=getJsonPath(response,"place_id");
+		req= given().spec(requestSpecification()).queryParam("place_id",place_Id);
+		user_calls_with_http_Request(apiType,"GET");
+		String actualName=getJsonPath(response,"name");
+		assertEquals(actualName,expectedName);
+	}
 }
 
