@@ -1,7 +1,7 @@
 package stepDefinitions;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
