@@ -3,6 +3,9 @@
 .project
 .settings/
 
+# Maven target folder
+target/
+
 # IntelliJ IDEA 
 .idea/
 *.iml
@@ -31,7 +34,7 @@ Thumbs.db
 *.ear
 
 # Test reports 
-/target/surefire-reports/
+/surefire-reports/
 /test-output/
 
 # Build tools cache#
@@ -41,11 +44,4 @@ Thumbs.db
 
 # Git folder exclusions
 .git/
-
-# Other folders
-/target/classes/
-/target/generated-sources/
-/target/generated-test-sources/
-/target/maven-status/
-/target/test-classes/
 
